@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="col-md-offset-2 col-sm-8">
+    <h2 >List of Users</h2>
+    <form class="form-horizontal" th:action="@{/users/create}" method="get">
+        <div align="right">
+            <input class="btn-info btn-lg" type="submit" value="Create New User"/>
+        </div>
+    </form>
+    <br>
+    <div th:replace="users-list :: table"></div>
+</div>
+</body>
+</html>

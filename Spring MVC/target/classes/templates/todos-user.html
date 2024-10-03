@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>ToDo Lists for User</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2">
+            <h2>ToDo Lists for User <span th:text="${user.firstName + ' ' + user.lastName}"></span></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="todo : ${todos}">
+                    <td th:text="${todo.title}">ToDo Title</td>
+                    <td th:text="${#dates.format(todo.createdAt, 'yyyy-MM-dd HH:mm')}">Created At</td>
+                    <td>
+                        <a th:href="@{|/todos/${todo.id}/tasks|}">View Tasks</a> |
+                        <a th:href="@{|/todos/${todo.id}/update/users/${user.id}|}">Edit</a> |
+                        <a th:href="@{|/todos/${todo.id}/delete/users/${user.id}|}">Remove</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <a class="btn btn-primary" th:href="@{|/todos/create/users/${user.id}|}">Create New ToDo List</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

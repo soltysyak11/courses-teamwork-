@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="container">
+    <h2>User ToDo Lists</h2>
+    <a th:href="@{/todos/create/users/{userId}(userId=${userId})}" class="btn btn-primary">Create New ToDo</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td>
+                <a th:href="@{/todos/{todoId}/update/users/{userId}(todoId=${todo.id}, userId=${userId})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/todos/{todoId}/delete/users/{userId}(todoId=${todo.id}, userId=${userId})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/tasks/create/todos/{todoId}(todoId=${todo.id})}" class="btn btn-success">Add Task</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

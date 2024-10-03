@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Users</title>
+</head>
+<body>
+
+<table th:fragment="table" class="table">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Id</th>
+        <th>Full name</th>
+        <th>E-mail</th>
+        <th colspan="2">Operations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, stat : ${users}">
+        <td th:text="${stat.index + 1}">0</td>
+        <td th:text="${user.id}">ID</td>
+        <td>
+            <a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/todos/all/users/{id}(id=${user.id})}">Full Name</a>
+        </td>
+        <td th:text="${user.email}">User Email</td>
+        <td>
+            <a th:href="@{/users/{id}/update(id=${user.id})}">Edit</a>
+        </td>
+        <td>
+            <a th:href="@{/users/{id}/delete(id=${user.id})}">Remove</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Create Task</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="container">
+    <h2>Create Task</h2>
+    <form th:action="@{/tasks/create/todos/{todo_id}(todo_id=${todoId})}" th:object="${taskDto}" method="post" class="form-horizontal">
+        <input type="hidden" th:field="*{todoId}" th:value="${todoId}" />
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Task Name:</label>
+            <div class="col-sm-10">
+                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter task name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="priority">Priority:</label>
+            <div class="col-sm-10">
+                <select th:field="*{priority}" class="form-control" id="priority">
+                    <option th:each="priority : ${priorities}" th:value="${priority}" th:text="${priority}">Priority</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Create Task</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

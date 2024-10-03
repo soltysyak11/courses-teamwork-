@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Update Task</title>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<div class="col-md-offset-2 col-sm-6">
+    <h2>Update Task</h2>
+
+    <form class="form-horizontal" th:action="@{|/tasks/${taskDto.id}/update/todos/${todoId}|}" th:object="${taskDto}" method="POST">
+        <div class="form-group">
+            <label class="control-label" for="id">Id:</label>
+            <input class="form-control" type="text" th:field="*{id}" id="id" disabled/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="name">Name:</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name"/>
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="priority">Priority:</label>
+            <select class="form-control" th:field="*{priority}" id="priority">
+                <option th:each="priority : ${priorities}"
+                        th:value="${priority}" th:text="${priority.name()}"
+                        th:selected="${priority.name() == taskDto.priority}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="state">Status:</label>
+            <select class="form-control" th:field="*{stateId}" id="state">
+                <option th:each="state : ${states}"
+                        th:value="${state.id}" th:text="${state.name}"
+                        th:selected="${state.id == taskDto.stateId}"></option>
+            </select>
+        </div>
+        <input class="btn btn-info" type="submit" value="Update"/>
+        <input class="btn btn" type="reset" value="Clear"/>
+
+        <input type="hidden" name="todoId" th:value="${todoId}">
+    </form>
+    <div>
+        <a th:href="@{|/todos/${todoId}/tasks|}">Go to Task List</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script>
+        function showErrors() {
+            var errorMessage = document.getElementById("errorMessage").value;
+            var errorField = document.getElementById("errorField").value;
+            if (errorMessage && errorField) {
+                alert("The following condition must be met for the " + errorField + " field: " + errorMessage);
+            }
+        }
+    </script>
+</head>
+<body onload="showErrors()">
+<div th:replace="header :: header"></div>
+<h2 class="col-md-offset-1">Update Existing User</h2>
+<br>
+<input type="hidden" id="errorMessage" th:value="${errorMessage}"/>
+<input type="hidden" id="errorField" th:value="${errorField}"/>
+<form class="form-horizontal" action="#" th:action="@{/users/{id}/update(id=${user.id})}" th:object="${user}" method="post">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="id">ID:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" id="id" name="id" th:field="*{id}" disabled/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="firstName">First Name:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" id="firstName" name="firstName" th:field="*{firstName}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="lastName">Last Name:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" id="lastName" name="lastName" th:field="*{lastName}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="email">Email:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="email" id="email" name="email" th:field="*{email}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="oldPassword">Old Password:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" id="oldPassword" th:value="${user.password}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="newPassword">New Password:</label>
+        <div class="col-sm-6">
+            <input class="form-control" type="password" id="newPassword" name="newPassword" th:field="*{password}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="role">Role:</label>
+        <div class="col-sm-6">
+            <select class="form-control" name="role" id="role" th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-6">
+        <input class="btn btn-info" type="submit" value="Update"/>
+        <input class="btn btn" type="reset" value="Clear"/>
+    </div>
+</form>
+</body>
+</html>
